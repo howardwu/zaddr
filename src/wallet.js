@@ -8,7 +8,7 @@ const sha256 = require('./sha256')
 // TODO (howardwu): Check length of key
 // Generates the SHA256 hash of a formatted secret key.
 function AddrPRF (key, t) {
-  const buffer = Buffer.concat([key, new Buffer(32).fill(0)])
+  const buffer = Buffer.concat([key, Buffer.alloc(32, 0)])
   buffer[0] |= 0xc0
   buffer[32] = t
   return sha256(buffer, { noPreprocess: true, asBytes: true })
@@ -35,9 +35,9 @@ function ConvertKeyToAddress (key) {
   const addrB = EncAddrPRF(decodedKey)
 
   // TODO (howardwu): Generalize this for all versions
-  const bufferV = new Buffer([0x16, 0x9A])
-  const bufferA = new Buffer(addrA)
-  const bufferB = new Buffer(addrB)
+  const bufferV = Buffer.from([0x16, 0x9A])
+  const bufferA = Buffer.from(addrA)
+  const bufferB = Buffer.from(addrB)
 
   const bufferAddr = Buffer.concat([bufferV, bufferA, bufferB])
 

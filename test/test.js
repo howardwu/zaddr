@@ -46,4 +46,3 @@ test('generateKey', function (t) {
   t.equal(key.slice(0, 2), 'SK')
   t.end()
 })
-
