@@ -2,7 +2,7 @@ const bs58check = require('bs58check')
 const crypto = require('crypto')
 const wallet = require('./src/wallet')
 
-// Generates a random secret key.
+// Generates a random spending key.
 function generateKey () {
   const buffer = crypto.randomBytes(32)
   buffer[0] &= 0x0f
@@ -12,8 +12,8 @@ function generateKey () {
 }
 
 // Generates the z-addr given a secret key.
-function generateAddressFromKey (key) {
-  return wallet.ConvertKeyToAddress(key)
+function generateAddressFromKey (key, network) {
+  return wallet.ConvertKeyToAddress(key, network)
 }
 
 // TODO (howardwu): Generate secret key from seed
