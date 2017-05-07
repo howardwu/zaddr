@@ -46,3 +46,14 @@ mainnetPairs.forEach(function (pair, index) {
     t.end()
   })
 })
+
+test('generateWallet', function (t) {
+  const mainnetWallet = zaddr.generateWallet('mainnet')
+  t.equal(mainnetWallet.key.slice(0, 2), 'SK')
+  t.equal(mainnetWallet.zaddr.slice(0, 2), 'zc')
+
+  const testnetWallet = zaddr.generateWallet('testnet')
+  t.equal(testnetWallet.key.slice(0, 2), 'ST')
+  t.equal(testnetWallet.zaddr.slice(0, 2), 'zt')
+  t.end()
+})

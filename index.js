@@ -10,6 +10,14 @@ function generateAddressFromKey (key, network) {
   return walletops.ConvertKeyToAddress(key, network)
 }
 
+// TODO (howardwu): Add BIP39 mnemonic
+// Generates a Zcash private wallet.
+function generateWallet (network) {
+  const key = generateKey(network)
+  const zaddr = generateAddressFromKey(key, network)
+  return { key: key, zaddr: zaddr }
+}
+
 // TODO (howardwu): Generate secret key from seed
 
 // TODO (howardwu): Generate secret key from mnemonic (bip39)
@@ -22,13 +30,12 @@ function generateAddressFromKey (key, network) {
 
 // TODO (howardwu): Generate z-addr from mnemonic (bip39)
 
-// TODO (howardwu): Generate wallet (key, zaddr, mnemonic)
-
 // TODO (howardwu): Generate wallet (key, zaddr, mnemonic) from seed
 
 // TODO (howardwu): Generate vanity wallet (key, vanity zaddr, mnemonic)
 
 module.exports = {
   generateKey: generateKey,
-  generateAddressFromKey: generateAddressFromKey
+  generateAddressFromKey: generateAddressFromKey,
+  generateWallet: generateWallet
 }
