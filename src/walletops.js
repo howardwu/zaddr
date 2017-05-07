@@ -14,6 +14,7 @@ const networkHeader = {
   }
 }
 
+// Validate network parameter is a `mainnet` or `testnet` string.
 function ValidateNetwork (network) {
   if (network === undefined || network === null) {
     return false
@@ -24,8 +25,8 @@ function ValidateNetwork (network) {
   }
 }
 
-// Validates the header of the provided spending key.
-function ValidateKey (key, header) {
+// Validates the prefix of the provided spending key.
+function ValidateKey (key) {
   if (key === undefined || key === null) {
     return false
   } else if ((key[0] & 0xf0) !== 0) {
@@ -89,11 +90,11 @@ function ConvertKeyToAddress (key, network) {
     throw new Error('Invalid network choice')
   }
 
-  const header = network === 'mainnet' ? networkHeader.mainnet : networkHeader.testnet
-
-  if (!ValidateKey(key, header)) {
+  if (!ValidateKey(key)) {
     throw new Error('Invalid spending key')
   }
+
+  const header = network === 'mainnet' ? networkHeader.mainnet : networkHeader.testnet
 
   const decode = bs58check.decode(key)
   const prefix = decode.slice(0, 2)
