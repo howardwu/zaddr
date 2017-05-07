@@ -1,6 +1,7 @@
 # zaddr
 
 A lightweight Javascript library for generating Zcash zaddrs and zkeys
+
 **NOTE: This library is under active development. Observe the marked TODOs and proceed at your own discretion.**
 
 [![TRAVIS](https://secure.travis-ci.org/howardwu/zaddr.png)](http://travis-ci.org/howardwu/zaddr)
