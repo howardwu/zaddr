@@ -1,4 +1,5 @@
 const bs58check = require('bs58check')
+const crypto = require('crypto')
 const nacl = require('tweetnacl')
 const sha256 = require('./sha256')
 
@@ -67,6 +68,21 @@ function EncAddrPRF (key) {
   return nacl.scalarMult.base(Uint8Array.from(addr))
 }
 
+// Creates a spending key.
+function CreateKey (network) {
+  if (!ValidateNetwork(network)) {
+    throw new Error('Invalid network choice')
+  }
+
+  const header = network === 'mainnet' ? networkHeader.mainnet : networkHeader.testnet
+
+  const buffer = crypto.randomBytes(32)
+  buffer[0] &= 0x0f
+
+  const bufferHeader = Buffer.from(header.key)
+  return bs58check.encode(Buffer.concat([bufferHeader, buffer]))
+}
+
 // Converts a provided spending key string to a zaddr string.
 function ConvertKeyToAddress (key, network) {
   if (!ValidateNetwork(network)) {
@@ -104,5 +120,6 @@ function ConvertKeyToAddress (key, network) {
 }
 
 module.exports = {
+  CreateKey: CreateKey,
   ConvertKeyToAddress: ConvertKeyToAddress
 }

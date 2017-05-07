@@ -1,8 +1,7 @@
 const test = require('tape')
-const wallet = require('../src/wallet')
 const zaddr = require('../index')
 
-const pairs = [
+const mainnetPairs = [
   {
     network: 'mainnet',
     key: 'SKxsbCVjuidoTfTm58UmGv32Bap5YeboJqVc2hScye1WrearWbHA',
@@ -30,24 +29,20 @@ const pairs = [
   }
 ]
 
-pairs.forEach(function (pair, index) {
-  test('ConvertKeyToAddress' + index, function (t) {
-    const address = wallet.ConvertKeyToAddress(pair.key, pair.network)
-    t.equal(address.slice(0, 2), 'zc')
-    t.equal(address, pair.zaddr)
-    t.end()
-  })
+test('generateKey', function (t) {
+  const mainnetKey = zaddr.generateKey('mainnet')
+  t.equal(mainnetKey.slice(0, 2), 'SK')
 
+  const testnetKey = zaddr.generateKey('testnet')
+  t.equal(testnetKey.slice(0, 2), 'ST')
+  t.end()
+})
+
+mainnetPairs.forEach(function (pair, index) {
   test('generateAddressFromKey' + index, function (t) {
     const address = zaddr.generateAddressFromKey(pair.key, pair.network)
     t.equal(address.slice(0, 2), 'zc')
     t.equal(address, pair.zaddr)
     t.end()
   })
-})
-
-test('generateKey', function (t) {
-  const key = zaddr.generateKey()
-  t.equal(key.slice(0, 2), 'SK')
-  t.end()
 })

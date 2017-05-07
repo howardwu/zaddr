@@ -1,19 +1,13 @@
-const bs58check = require('bs58check')
-const crypto = require('crypto')
-const wallet = require('./src/wallet')
+const walletops = require('./src/walletops')
 
 // Generates a random spending key.
-function generateKey () {
-  const buffer = crypto.randomBytes(32)
-  buffer[0] &= 0x0f
-
-  const bufferSK = Buffer.from([0xAB, 0x36])
-  return bs58check.encode(Buffer.concat([bufferSK, buffer]))
+function generateKey (network) {
+  return walletops.CreateKey(network)
 }
 
-// Generates the z-addr given a secret key.
+// Generates the zaddr associated with a given spending key.
 function generateAddressFromKey (key, network) {
-  return wallet.ConvertKeyToAddress(key, network)
+  return walletops.ConvertKeyToAddress(key, network)
 }
 
 // TODO (howardwu): Generate secret key from seed
