@@ -5,9 +5,7 @@
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-A lightweight Javascript library for generating Zcash zaddrs and zkeys
-
-**NOTE: This library is under active development. Observe the marked TODOs and proceed at your own discretion.**
+A lightweight Javascript library for generating Zcash z-addresses
 
 ## Install
 
@@ -20,17 +18,10 @@ npm install zaddr --save
 ``` javascript
 const zaddr = require('zaddr')
 
-const network = 'mainnet'
-
-const key = zaddr.generateKey(network)
-// => SKxsbCVjuidoTfTm58UmGv32Bap5YeboJqVc2hScye1WrearWbHA
-
-const address = zaddr.generateAddressFromKey(key, network)
-// => zcB54stMXcyiDhDCLtvHcEDismnWrTycEW4ktU4iEc5H1tH313zjn4buiTRjXiNhcTw5yR4De8p787qqJbz1iRj37uwiKJB
-
-const wallet = zaddr.generateWallet(network)
-// => { key: 'SKxsbCVjuidoTfTm58UmGv32Bap5YeboJqVc2hScye1WrearWbHA',
-//      zaddr: 'zcB54stMXcyiDhDCLtvHcEDismnWrTycEW4ktU4iEc5H1tH313zjn4buiTRjXiNhcTw5yR4De8p787qqJbz1iRj37uwiKJB' }
+const wallet = zaddr.generateWallet('mainnet')
+// => { spendingKey : 'SKxss2BvgfLjKCmrWNdGdG3B9ZHhQf2L1kGsQB34uykWeYRHgaDN',
+//      viewingKey  : 'ZiVKcXfY5nvfyuijKM3UyqnXx5ymCnp7ndgcTg1je5fJutsYxKiUousgH4TP2vY2pMBK594X91vdiFH8gR41gTjutR1ycsuzW',
+//      address     : 'zcNStB2sLnxPUTsg6aCSSQFdutcrp1a816m848ngoYLUa6kRTC3uZMWAhHnCU6bPtYyYGSw4HFFgDS2u6pwv41cx8BBgy8u' }
 ```
 
 ## License

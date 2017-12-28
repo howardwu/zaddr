@@ -1,41 +1,31 @@
-const walletops = require('./src/walletops')
+const wallet = require('./src/wallet')
 
 // Generates a random spending key.
-function generateKey (network) {
-  return walletops.CreateKey(network)
+function generateSpendingKey (network) {
+  return wallet.createSpendingKey(network)
 }
 
-// Generates the zaddr associated with a given spending key.
-function generateAddressFromKey (key, network) {
-  return walletops.ConvertKeyToAddress(key, network)
+// Generates the address associated with a given spending key.
+function generateAddressFromSpendingKey (key, network) {
+  return wallet.convertSpendingKeyToAddress(key, network)
 }
 
-// TODO (howardwu): Add BIP39 mnemonic
+// Generates the viewing key associated with a given spending key.
+function generateViewingKeyFromSpendingKey (key, network) {
+  return wallet.convertSpendingKeyToViewingKey(key, network)
+}
+
 // Generates a Zcash private wallet.
 function generateWallet (network) {
-  const key = generateKey(network)
-  const zaddr = generateAddressFromKey(key, network)
-  return { key: key, zaddr: zaddr }
+  const spendingKey = generateSpendingKey(network)
+  const viewingKey = generateViewingKeyFromSpendingKey(spendingKey, network)
+  const address = generateAddressFromSpendingKey(spendingKey, network)
+  return { spendingKey: spendingKey, viewingKey: viewingKey, address: address }
 }
 
-// TODO (howardwu): Generate secret key from seed
-
-// TODO (howardwu): Generate secret key from mnemonic (bip39)
-
-// TODO (howardwu): Generate mnemonic (bip39) from key
-
-// TODO (howardwu): Generate mnemonic (bip39) from seed
-
-// TODO (howardwu): Generate z-addr from seed
-
-// TODO (howardwu): Generate z-addr from mnemonic (bip39)
-
-// TODO (howardwu): Generate wallet (key, zaddr, mnemonic) from seed
-
-// TODO (howardwu): Generate vanity wallet (key, vanity zaddr, mnemonic)
-
 module.exports = {
-  generateKey: generateKey,
-  generateAddressFromKey: generateAddressFromKey,
+  generateSpendingKey: generateSpendingKey,
+  generateAddressFromSpendingKey: generateAddressFromSpendingKey,
+  generateViewingKeyFromSpendingKey: generateViewingKeyFromSpendingKey,
   generateWallet: generateWallet
 }

@@ -1,7 +1,7 @@
 {
   "name": "zaddr",
-  "version": "1.0.2",
-  "description": "A lightweight Javascript library for generating Zcash zaddrs and zkeys",
+  "version": "1.0.5",
+  "description": "A lightweight Javascript library for generating Zcash z-addresses",
   "main": "index.js",
   "scripts": {
     "test": "standard && tape test/*.js"
